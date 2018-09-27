@@ -36,4 +36,13 @@ public class PostController {
         model.addAttribute("post", post);
         return "show";
     }
+    @RequestMapping(value = "/post/new", method = RequestMethod.GET)
+    public String newPost( Model model) {
+        return "newPost";
+    }
+
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    public String create( Model model) {
+        return "create";
+    }
 }

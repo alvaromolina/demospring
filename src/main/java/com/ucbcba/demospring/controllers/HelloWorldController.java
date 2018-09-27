@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HelloWorldController {
 
-    @RequestMapping(value = "/{mensaje}", method = RequestMethod.GET)
-    public String index(@PathVariable String mensaje, Model model) {
-        mensaje = mensaje.substring(0,4);
-        model.addAttribute("message", mensaje);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index( Model model) {
+        model.addAttribute("message", "Hello");
         return "hello";
     }
 
