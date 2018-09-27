@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -22,4 +24,11 @@ public class PostServiceImpl implements PostService {
     public Iterable<Post> listAllPosts() {
         return postRepository.findAll();
     }
+
+    public Post findPost(Integer id){
+        Optional<Post> opt;
+        opt = postRepository.findById(id);
+        return opt.get();
+    }
+
 }

@@ -5,4 +5,5 @@ import com.ucbcba.demospring.entities.Post;
 public interface PostService {
 
     Iterable<Post> listAllPosts();
+    Post findPost(Integer id);
 }

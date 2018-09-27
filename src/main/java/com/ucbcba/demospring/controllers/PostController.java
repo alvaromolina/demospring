@@ -28,4 +28,12 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "posts";
     }
+
+
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable Integer id, Model model) {
+        Post post = postService.findPost(id);
+        model.addAttribute("post", post);
+        return "show";
+    }
 }
