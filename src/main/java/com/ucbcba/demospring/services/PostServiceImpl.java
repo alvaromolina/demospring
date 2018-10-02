@@ -31,4 +31,9 @@ public class PostServiceImpl implements PostService {
         return opt.get();
     }
 
+    @Override
+    public void savePost(Post post) {
+        postRepository.save(post);
+    }
+
 }

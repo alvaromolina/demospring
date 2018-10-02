@@ -17,6 +17,7 @@ public class Post {
     private String text;
 
 
+
     public Integer getId() {
         return id;
     }

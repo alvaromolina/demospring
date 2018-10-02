@@ -6,8 +6,8 @@
 </head>
 <body>
 <form action="/post" method="POST">
-    <b>Texto:</b><input type="text" name="text">
-
+    <input type="hidden" name="id" th:value="${post.id}">
+    <b>Texto:</b><input type="text" name="text" th:value="${post.text}">
 
     <input type="submit" value="Guardar">
 </form>

@@ -5,6 +5,7 @@ import com.ucbcba.demospring.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,12 @@ public class PostController {
         return "posts";
     }
 
+    @RequestMapping(value = "/post/edit/{id}", method = RequestMethod.GET)
+    public String edit(@PathVariable Integer id, Model model) {
+        Post post = postService.findPost(id);
+        model.addAttribute("post", post);
+        return "editPost";
+    }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String show(@PathVariable Integer id, Model model) {
@@ -42,7 +49,8 @@ public class PostController {
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public String create( Model model) {
-        return "create";
+    public String create(@ModelAttribute("post") Post post, Model model) {
+        postService.savePost(post);
+        return "redirect:/posts";
     }
 }
