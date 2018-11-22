@@ -5,10 +5,7 @@ import com.ucbcba.demospring.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,31 @@ public class PostController {
         Post post = postService.findPost(id);
         model.addAttribute("post", post);
         return "editPost";
+    }
+    @RequestMapping(value = "/post/like/{id}", method = RequestMethod.GET)
+    public String like(@PathVariable Integer id, Model model) {
+        Post post = postService.findPost(id);
+        post.setLikes(post.getLikes()+1);
+        postService.savePost(post);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/post/likeajax/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String likeAjax(@PathVariable Integer id, Model model) {
+        Post post = postService.findPost(id);
+        post.setLikes(post.getLikes()+1);
+        postService.savePost(post);
+        return post.getLikes().toString();
+    }
+
+    @RequestMapping(value = "/post/unlikeajax/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String unlikeAjax(@PathVariable Integer id, Model model) {
+        Post post = postService.findPost(id);
+        post.setLikes(post.getLikes()-1);
+        postService.savePost(post);
+        return post.getLikes().toString();
     }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)

@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8" >
     <title>Title</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $(function(){
+                $(".unlike").hide();
+
+				function like(id){
+					$.get( "/post/likeajax/"+id, function( data ) {
+                      $("#likes"+id).html(data);
+                      $("#"+id).hide();
+                      $("#unlike"+id).show();
+                    });
+				}
+				function unlike(id){
+					$.get( "/post/unlikeajax/"+id, function( data ) {
+                      $("#likes"+id).html(data);
+                      $("#"+id).show();
+                      $("#unlike"+id).hide();
+                    });
+				}
+				$(".like").on("click", function(){
+				    like($(this).attr('id'));
+				});
+			    $(".unlike").on("click", function(){
+				    unlike($(this).attr('id').substring(6, 10));
+				});
+
+		});
+    </script>
 </head>
 <body>
 
@@ -18,10 +46,15 @@
         <td th:text="${post.text}">
 
         </td>
+        <td th:id="likes+${post.id}" th:text="${post.likes}">
+
+        </td>
         <td>
             <a th:href="@{/post/}+${post.id}">Ver</a>
             <a th:href="@{/post/edit/}+${post.id}">Editar</a>
-            <a href="/post">Borrar</a>
+            <a th:href="@{/post/delete/}+${post.id}">Borrar</a>
+            <button class="like" th:id="${post.id}">Like</button>
+            <button class="unlike" th:id="unlike+${post.id}">Unlike</button>
 
         </td>
     </tr>
