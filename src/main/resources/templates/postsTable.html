@@ -1,0 +1,31 @@
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Texto</th>
+
+    </tr>
+    <tr th:each="post: ${posts}">
+        <td th:text="${post.id}">
+        </td>
+        <td th:text="${post.title}">
+
+        </td>
+        <td th:text="${post.text}">
+
+        </td>
+        <td th:id="likes+${post.id}" th:text="${post.likes}">
+
+        </td>
+        <td>
+            <a th:href="@{/post/}+${post.id}">Ver</a>
+            <a th:href="@{/post/edit/}+${post.id}">Editar</a>
+            <a th:href="@{/post/delete/}+${post.id}">Borrar</a>
+            <button class="like" th:id="${post.id}" th:if>Like</button>
+            <button class="unlike" th:id="unlike+${post.id}">Unlike</button>
+
+        </td>
+    </tr>
+</table>
+</html>

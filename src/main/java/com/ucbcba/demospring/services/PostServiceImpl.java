@@ -25,6 +25,11 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll();
     }
 
+    @Override
+    public Iterable<Post> searchByTitle(String query) {
+        return postRepository.searchByTitle(query);
+    }
+
     public Post findPost(Integer id){
         Optional<Post> opt;
         opt = postRepository.findById(id);

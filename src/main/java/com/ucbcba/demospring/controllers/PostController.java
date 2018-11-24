@@ -59,6 +59,23 @@ public class PostController {
         return post.getLikes().toString();
     }
 
+
+    @RequestMapping(value = "/post/search", method = RequestMethod.GET)
+    public String search(@RequestParam("query") String query, Model model) {
+        List<Post> posts  = (List) postService.searchByTitle(query);
+        model.addAttribute("posts", posts);
+        return "posts";
+    }
+
+    @RequestMapping(value = "/post/searchAjax/", method = RequestMethod.GET)
+    public String searchAjax(@RequestParam("query") String query, Model model) {
+        List<Post> posts  = (List) postService.searchByTitle(query);
+        model.addAttribute("posts", posts);
+        return "postsTable";
+    }
+
+
+
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String show(@PathVariable Integer id, Model model) {
         Post post = postService.findPost(id);
